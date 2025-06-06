@@ -1,10 +1,8 @@
 package main
 
 import (
-	"context"
 	"github.com/MyGoFor/E-commerce/app/email/biz/consumer"
 	"github.com/MyGoFor/E-commerce/app/email/infra/mq"
-	"github.com/MyGoFor/E-commerce/common/mtl"
 	"github.com/MyGoFor/E-commerce/common/serversuite"
 	"net"
 	"time"
@@ -24,9 +22,9 @@ var (
 )
 
 func main() {
-	mtl.InitMetric(ServiceName, conf.GetConf().Kitex.MetricsPort, RegistryAddr)
-	p := mtl.InitTracing(ServiceName)
-	defer p.Shutdown(context.Background())
+	//mtl.InitMetric(ServiceName, conf.GetConf().Kitex.MetricsPort, RegistryAddr)
+	//p := mtl.InitTracing(ServiceName)
+	//defer p.Shutdown(context.Background())
 
 	mq.Init()
 	consumer.Init()
