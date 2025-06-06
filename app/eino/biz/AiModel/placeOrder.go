@@ -12,6 +12,7 @@ import (
 	"github.com/cloudwego/eino/schema"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -24,9 +25,9 @@ func PlaceModel(ctx context.Context, question string, uid int32) (string, error)
 
 	// 初始化模型
 	model, err := ark.NewChatModel(ctx, &ark.ChatModelConfig{
-		APIKey: "697cee32-664b-4102-bec5-fc859b1b5158",
+		APIKey: os.Getenv("API_KEY"),
 		Region: "cn-beijing",
-		Model:  "ep-20250129165433-s8xk8",
+		Model:  "doubao-1.5-pro-32k-250115",
 	})
 	if err != nil {
 		panic(err)
