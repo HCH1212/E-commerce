@@ -53,4 +53,3 @@ echo 有用的管理界面:
 echo   - Consul: http://localhost:8500
 echo   - MySQL: localhost:3306 (用户名: root, 密码: 041212)
 echo.
-pause
