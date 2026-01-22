@@ -58,6 +58,18 @@ cwgo_hertz_ai_page:
 docker:
 	@docker compose up -d
 
+.PHONY: init_db
+init_db:
+	@echo "正在初始化数据库..."
+	@docker exec -i e-commerce-mysql-1 mysql -uroot -p041212 < init_databases.sql
+	@echo "数据库初始化完成！"
+
+.PHONY: init_product_data
+init_product_data:
+	@echo "正在初始化商品数据..."
+	@docker exec -i e-commerce-mysql-1 mysql -uroot -p041212 < app/product/default.sql
+	@echo "商品数据初始化完成！"
+
 .PHONY: cwgo_kitex_client_user
 cwgo_kitex_client_user:
 	@cd rpc_gen && \
