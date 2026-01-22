@@ -19,14 +19,14 @@ echo.
 
 :: 步骤 2: 启动 Frontend 服务
 echo [2/5] 启动 Frontend 服务...
-start "Frontend Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\frontend && go run . || pause"
+start "Frontend Service" cmd /k "cd /d %~dp0app\frontend && go run . || pause"
 timeout /t 3 /nobreak >nul
 echo ✓ Frontend 服务已启动
 echo.
 
 :: 步骤 3: 启动 Product 服务
 echo [3/5] 启动 Product 服务...
-start "Product Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\product && go run . || pause"
+start "Product Service" cmd /k "cd /d %~dp0app\product && go run . || pause"
 timeout /t 3 /nobreak >nul
 echo ✓ Product 服务已启动
 echo.
@@ -49,35 +49,35 @@ echo [5/5] Starting other services...
 echo.
 
 echo   启动 User 服务...
-start "User Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\user && go run . || pause"
+start "User Service" cmd /k "cd /d %~dp0app\user && go run . || pause"
 timeout /t 2 /nobreak >nul
 
 echo   启动 Cart 服务...
-start "Cart Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\cart && go run . || pause"
+start "Cart Service" cmd /k "cd /d %~dp0app\cart && go run . || pause"
 timeout /t 2 /nobreak >nul
 
 echo   启动 Order 服务...
-start "Order Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\order && go run . || pause"
+start "Order Service" cmd /k "cd /d %~dp0app\order && go run . || pause"
 timeout /t 2 /nobreak >nul
 
 echo   启动 Payment 服务...
-start "Payment Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\payment && go run . || pause"
+start "Payment Service" cmd /k "cd /d %~dp0app\payment && go run . || pause"
 timeout /t 2 /nobreak >nul
 
 echo   启动 Checkout 服务...
-start "Checkout Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\checkout && go run . || pause"
+start "Checkout Service" cmd /k "cd /d %~dp0app\checkout && go run . || pause"
 timeout /t 2 /nobreak >nul
 
 echo   启动 Email 服务...
-start "Email Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\email && go run . || pause"
+start "Email Service" cmd /k "cd /d %~dp0app\email && go run . || pause"
 timeout /t 2 /nobreak >nul
 
 echo   启动 Casbin 服务...
-start "Casbin Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\casbin && go run . || pause"
+start "Casbin Service" cmd /k "cd /d %~dp0app\casbin && go run . || pause"
 timeout /t 2 /nobreak >nul
 
 echo   启动 Eino 服务...
-start "Eino Service" cmd /k "cd /d d:\goProjects\github\E-commerce\app\eino && go run . || pause"
+start "Eino Service" cmd /k "cd /d %~dp0app\eino && go run . || pause"
 timeout /t 2 /nobreak >nul
 
 echo.
