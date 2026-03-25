@@ -5,6 +5,8 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOG_DIR="${ROOT_DIR}/tmp/logs"
 PID_DIR="${ROOT_DIR}/tmp/pids"
 MYSQL_SERVICE="mysql"
+MYSQL_HOST="127.0.0.1"
+MYSQL_PORT="3306"
 
 SERVICES=(
   frontend
@@ -128,7 +130,7 @@ wait_mysql_ready() {
 
   echo "Waiting for MySQL to be ready..."
   for ((i = 1; i <= retries; i++)); do
-    if docker compose exec -T "${MYSQL_SERVICE}" mysqladmin ping -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" --silent >/dev/null 2>&1; then
+    if docker compose exec -T -e MYSQL_PWD="${MYSQL_PASSWORD}" "${MYSQL_SERVICE}" mysqladmin ping -h"${MYSQL_HOST}" -P"${MYSQL_PORT}" --protocol=tcp -u"${MYSQL_USER}" --silent >/dev/null 2>&1; then
       echo "OK: MySQL is ready."
       return 0
     fi
@@ -146,7 +148,7 @@ run_sql_file() {
     exit 1
   fi
 
-  cat "${sql_file}" | docker compose exec -T "${MYSQL_SERVICE}" mysql -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}"
+  cat "${sql_file}" | docker compose exec -T -e MYSQL_PWD="${MYSQL_PASSWORD}" "${MYSQL_SERVICE}" mysql -h"${MYSQL_HOST}" -P"${MYSQL_PORT}" --protocol=tcp -u"${MYSQL_USER}"
 }
 
 print_last_log_hint() {

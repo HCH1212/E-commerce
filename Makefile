@@ -1,5 +1,11 @@
 export MOD=github.com/MyGoFor/E-commerce
 
+.PHONY: git
+git:
+	@git add . && \
+	git commit -m "update" && \
+	git push
+
 .PHONY: cwgo_hertz_home
 cwgo_hertz_home:
 	@cd app/frontend && \
