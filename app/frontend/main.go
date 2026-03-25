@@ -4,6 +4,7 @@ package main
 
 import (
 	"context"
+	admin "github.com/MyGoFor/E-commerce/app/frontend/biz/admin"
 	"github.com/MyGoFor/E-commerce/app/frontend/infra/rpc"
 	frontendutils "github.com/MyGoFor/E-commerce/app/frontend/utils"
 	"github.com/MyGoFor/E-commerce/common/mtl"
@@ -94,6 +95,7 @@ func main() {
 	h.GET("/ai", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "ai", utils.H{"Title": "AI"})
 	})
+	admin.RegisterRoutes(h)
 
 	h.Spin()
 }

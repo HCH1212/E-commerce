@@ -5,5 +5,5 @@ app/**/log/
 app/**/tmp/
 app/**/kitex_gen/
 app/eino/.env
-
+tmp
 go.work.sum
