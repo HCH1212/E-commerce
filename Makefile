@@ -6,10 +6,6 @@ git:
 	git commit -m "update" && \
 	git push
 
-.PHONY: ngrok
-ngrok:
-	@ngrok http 8080
-
 .PHONY: cwgo_hertz_home
 cwgo_hertz_home:
 	@cd app/frontend && \
