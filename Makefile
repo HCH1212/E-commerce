@@ -1,10 +1,14 @@
-export MOD=github.com/MyGoFor/E-commerce
+﻿export MOD=github.com/MyGoFor/E-commerce
 
 .PHONY: git
 git:
 	@git add . && \
 	git commit -m "update" && \
 	git push
+
+.PHONY: ngrok
+ngrok:
+	@ngrok http 8080
 
 .PHONY: cwgo_hertz_home
 cwgo_hertz_home:
