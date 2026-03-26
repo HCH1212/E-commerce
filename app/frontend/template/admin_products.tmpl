@@ -1,62 +1,152 @@
-﻿{{ define "admin_products" }}
+{{ define "admin_products" }}
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ .Title }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        :root {
+            --admin-muted-bg: #f5f7fb;
+            --admin-border: #e8ebf1;
+        }
+        body { background: linear-gradient(180deg, #f8f9fa 0%, #eef3f8 100%); }
+        .admin-shell { min-height: calc(100vh - 56px); }
+        .admin-top-card {
+            border: 1px solid var(--admin-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+            background: #fff;
+        }
+        .admin-query-input { min-width: 320px; }
+        .admin-table-wrap {
+            border: 1px solid var(--admin-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+            background: #fff;
+            overflow: hidden;
+        }
+        .admin-table-wrap thead th {
+            background: var(--admin-muted-bg);
+            border-bottom: 1px solid var(--admin-border);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .admin-product-name { max-width: 260px; }
+        .admin-thumb {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+            background: #fff;
+        }
+        .admin-empty { padding: 64px 0; }
+        .badge-category {
+            background: rgba(25, 135, 84, 0.12);
+            color: #146c43;
+            border: 1px solid rgba(25, 135, 84, 0.2);
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            .admin-query-input { min-width: 100%; }
+            .admin-actions { display: grid; gap: 8px; }
+        }
+    </style>
 </head>
-<body class="bg-light">
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="mb-0">商品后台管理</h2>
-        <a class="btn btn-primary" href="/admin/products/new">新增商品</a>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <img src="https://jw.cqupt.edu.cn/images/logo.png" alt="CQUPT Logo" style="height: 2.3em">
+                <span class="fw-semibold">E-commerce</span>
+            </a>
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <a class="btn btn-outline-success btn-sm" href="/">Store Home</a>
+                <a class="btn btn-success btn-sm" href="/admin/products/new">
+                    <i class="fa-solid fa-plus me-1"></i>Add Product
+                </a>
+                <form method="post" action="/admin/logout" class="d-inline">
+                    <button class="btn btn-outline-secondary btn-sm" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="admin-shell py-4">
+<div class="container">
+    <div class="admin-top-card p-4 mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+            <div>
+                <h2 class="mb-1">Product Admin Panel</h2>
+                <p class="text-muted mb-0">Manage products with search, editing, and quick actions.</p>
+            </div>
+            <span class="badge rounded-pill text-bg-light border px-3 py-2">
+                {{ len .Items }} result(s)
+            </span>
+        </div>
+
+        <form class="row g-2" method="get" action="/admin/products">
+            <div class="col-md-auto flex-grow-1">
+                <input class="form-control admin-query-input" type="text" name="q" value="{{ .Query }}" placeholder="Search by name or description" />
+            </div>
+            <div class="col-md-auto d-flex gap-2">
+                <button class="btn btn-outline-success" type="submit">
+                    <i class="fa-solid fa-magnifying-glass me-1"></i>Search
+                </button>
+                <a class="btn btn-light border" href="/admin/products">Reset</a>
+            </div>
+        </form>
     </div>
 
-    <form class="row g-2 mb-3" method="get" action="/admin/products">
-        <div class="col-auto" style="min-width: 280px;">
-            <input class="form-control" type="text" name="q" value="{{ .Query }}" placeholder="按名称或描述搜索" />
-        </div>
-        <div class="col-auto">
-            <button class="btn btn-outline-secondary" type="submit">搜索</button>
-        </div>
-    </form>
-
-    <div class="card">
+    <div class="admin-table-wrap">
         <div class="table-responsive">
-            <table class="table table-striped table-hover mb-0">
+            <table class="table table-hover align-middle mb-0">
                 <thead>
                 <tr>
+                    <th>Image</th>
                     <th>ID</th>
-                    <th>名称</th>
-                    <th>价格</th>
-                    <th>分类</th>
-                    <th>操作</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {{ range .Items }}
                 <tr>
+                    <td><img class="admin-thumb" src="{{ .Picture }}" alt="{{ .Name }}" /></td>
                     <td>{{ .Id }}</td>
-                    <td>{{ .Name }}</td>
-                    <td>${{ .Price }}</td>
+                    <td class="admin-product-name">
+                        <div class="fw-semibold text-truncate">{{ .Name }}</div>
+                        <div class="text-muted small text-truncate">{{ .Description }}</div>
+                    </td>
+                    <td class="fw-semibold text-success">${{ .Price }}</td>
                     <td>
                         {{ range .Categories }}
-                        <span class="badge text-bg-secondary me-1">{{ . }}</span>
+                        <span class="badge badge-category me-1">{{ . }}</span>
                         {{ end }}
                     </td>
-                    <td>
-                        <a class="btn btn-sm btn-outline-primary" href="/admin/products/edit?id={{ .Id }}">编辑</a>
-                        <form class="d-inline" method="post" action="/admin/products/delete" onsubmit="return confirm('确认删除该商品？');">
+                    <td class="admin-actions">
+                        <a class="btn btn-sm btn-outline-success" href="/admin/products/edit?id={{ .Id }}">Edit</a>
+                        <form class="d-inline" method="post" action="/admin/products/delete" onsubmit="return confirm('Confirm deleting this product?');">
                             <input type="hidden" name="id" value="{{ .Id }}" />
-                            <button class="btn btn-sm btn-outline-danger" type="submit">删除</button>
+                            <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>
                 {{ else }}
                 <tr>
-                    <td colspan="5" class="text-center py-4 text-muted">暂无数据</td>
+                    <td colspan="6" class="text-center text-muted admin-empty">
+                        <i class="fa-regular fa-folder-open fa-2x d-block mb-2"></i>
+                        No products found. Try a different keyword or add a new item.
+                    </td>
                 </tr>
                 {{ end }}
                 </tbody>
@@ -64,6 +154,9 @@
         </div>
     </div>
 </div>
+</main>
+
+<script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 {{ end }}

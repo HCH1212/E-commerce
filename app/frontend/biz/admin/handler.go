@@ -2,14 +2,13 @@ package admin
 
 import (
 	"context"
-	"encoding/base64"
 	"strconv"
-	"strings"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/hertz-contrib/sessions"
 )
 
 const (
@@ -26,7 +25,11 @@ type productForm struct {
 }
 
 func RegisterRoutes(h *server.Hertz) {
-	auth := adminBasicAuth()
+	auth := adminSessionAuth()
+	h.GET("/admin/login", adminLoginPage)
+	h.POST("/admin/login", adminLoginSubmit)
+	h.POST("/admin/logout", auth, adminLogout)
+	h.GET("/admin/logout", auth, adminLogout)
 	h.GET("/admin", auth, redirectAdminProducts)
 	h.GET("/admin/products", auth, listProducts)
 	h.GET("/admin/products/new", auth, newProductPage)
@@ -36,32 +39,51 @@ func RegisterRoutes(h *server.Hertz) {
 	h.POST("/admin/products/delete", auth, deleteProduct)
 }
 
-func adminBasicAuth() app.HandlerFunc {
+func adminSessionAuth() app.HandlerFunc {
 	return func(ctx context.Context, c *app.RequestContext) {
-		raw := strings.TrimSpace(string(c.GetHeader("Authorization")))
-		if raw == "" || !strings.HasPrefix(raw, "Basic ") {
-			unauthorized(c)
-			return
-		}
-
-		decoded, err := base64.StdEncoding.DecodeString(strings.TrimPrefix(raw, "Basic "))
-		if err != nil {
-			unauthorized(c)
-			return
-		}
-		pair := strings.SplitN(string(decoded), ":", 2)
-		if len(pair) != 2 || pair[0] != adminUsername || pair[1] != adminPassword {
-			unauthorized(c)
+		session := sessions.Default(c)
+		adminAuthed := session.Get("admin_authed")
+		if adminAuthed == nil || adminAuthed != true {
+			c.Redirect(consts.StatusFound, []byte("/admin/login"))
+			c.Abort()
 			return
 		}
 		c.Next(ctx)
 	}
 }
 
-func unauthorized(c *app.RequestContext) {
-	c.Response.Header.Set("WWW-Authenticate", `Basic realm="Admin Panel"`)
-	c.String(consts.StatusUnauthorized, "unauthorized")
-	c.Abort()
+func adminLoginPage(ctx context.Context, c *app.RequestContext) {
+	c.HTML(consts.StatusOK, "admin_login", utils.H{
+		"Title": "Admin - Login",
+		"Error": string(c.Query("error")),
+	})
+}
+
+func adminLoginSubmit(ctx context.Context, c *app.RequestContext) {
+	username := string(c.FormValue("username"))
+	password := string(c.FormValue("password"))
+	if username != adminUsername || password != adminPassword {
+		c.Redirect(consts.StatusFound, []byte("/admin/login?error=1"))
+		return
+	}
+
+	session := sessions.Default(c)
+	session.Set("admin_authed", true)
+	if err := session.Save(); err != nil {
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+	c.Redirect(consts.StatusFound, []byte("/admin/products"))
+}
+
+func adminLogout(ctx context.Context, c *app.RequestContext) {
+	session := sessions.Default(c)
+	session.Delete("admin_authed")
+	if err := session.Save(); err != nil {
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+	c.Redirect(consts.StatusFound, []byte("/admin/login"))
 }
 
 func redirectAdminProducts(ctx context.Context, c *app.RequestContext) {

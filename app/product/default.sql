@@ -2,6 +2,17 @@
 -- 先清空 products 表，然后插入默认商品数据
 use product;
 
+-- 确保表存在（避免服务迁移尚未完成时初始化失败）
+CREATE TABLE IF NOT EXISTS products (
+    id INT UNSIGNED NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    picture VARCHAR(512),
+    price FLOAT NOT NULL,
+    categories JSON,
+    PRIMARY KEY (id)
+);
+
 -- 清空现有商品数据
 TRUNCATE TABLE products;
 
