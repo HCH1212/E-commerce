@@ -44,7 +44,7 @@ func (h *GetCartService) Run(req *cart.Empty) (resp map[string]any, err error) {
 	}
 
 	return utils.H{
-		"Title": "Cart",
+		"Title": "购物车",
 		"items": items,
 		"total": strconv.FormatFloat(float64(total), 'f', 2, 64),
 	}, nil

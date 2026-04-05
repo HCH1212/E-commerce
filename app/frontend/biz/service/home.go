@@ -26,7 +26,7 @@ func (h *HomeService) Run(req *home.Empty) (resp map[string]any, err error) {
 	}
 	resp = map[string]any{
 		"Items": p.Products,
-		"Title": "E-commerce",
+		"Title": "商城主页",
 	}
 	return
 }

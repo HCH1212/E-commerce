@@ -18,5 +18,7 @@ func NewCheckoutResultService(Context context.Context, RequestContext *app.Reque
 }
 
 func (h *CheckoutResultService) Run(req *checkout.Empty) (resp map[string]any, err error) {
-	return utils.H{}, nil
+	return utils.H{
+		"Title": "下单成功",
+	}, nil
 }

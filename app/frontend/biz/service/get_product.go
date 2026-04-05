@@ -25,6 +25,7 @@ func (h *GetProductService) Run(req *product.ProductReq) (resp map[string]any, e
 		return nil, err
 	}
 	return utils.H{
-		"item": p.Product,
+		"Title": "商品详情",
+		"item":  p.Product,
 	}, nil
 }

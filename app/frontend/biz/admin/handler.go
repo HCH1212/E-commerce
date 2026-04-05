@@ -1,4 +1,4 @@
-package admin
+﻿package admin
 
 import (
 	"context"
@@ -54,7 +54,7 @@ func adminSessionAuth() app.HandlerFunc {
 
 func adminLoginPage(ctx context.Context, c *app.RequestContext) {
 	c.HTML(consts.StatusOK, "admin_login", utils.H{
-		"Title": "Admin - Login",
+		"Title": "后台 - 登录",
 		"Error": string(c.Query("error")),
 	})
 }
@@ -108,7 +108,7 @@ func listProducts(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	c.HTML(consts.StatusOK, "admin_products", utils.H{
-		"Title": "Admin - Products",
+		"Title": "后台 - 商品管理",
 		"Items": items,
 		"Query": q,
 	})
@@ -116,9 +116,9 @@ func listProducts(ctx context.Context, c *app.RequestContext) {
 
 func newProductPage(ctx context.Context, c *app.RequestContext) {
 	c.HTML(consts.StatusOK, "admin_product_form", utils.H{
-		"Title":       "Admin - New Product",
+		"Title":       "后台 - 新增商品",
 		"FormAction":  "/admin/products/new",
-		"SubmitLabel": "Create Product",
+		"SubmitLabel": "创建商品",
 		"Product":     Product{},
 		"Categories":  "",
 	})
@@ -166,9 +166,9 @@ func editProductPage(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	c.HTML(consts.StatusOK, "admin_product_form", utils.H{
-		"Title":       "Admin - Edit Product",
+		"Title":       "后台 - 编辑商品",
 		"FormAction":  "/admin/products/edit?id=" + strconv.FormatUint(id, 10),
-		"SubmitLabel": "Save Changes",
+		"SubmitLabel": "保存修改",
 		"Product":     item,
 		"Categories":  categoriesToInput(item.Categories),
 	})
@@ -221,3 +221,4 @@ func deleteProduct(ctx context.Context, c *app.RequestContext) {
 	}
 	c.Redirect(consts.StatusFound, []byte("/admin/products"))
 }
+

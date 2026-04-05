@@ -78,10 +78,10 @@ func main() {
 	h.Static("/static", "./")
 
 	h.GET("/sign-in", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "sign-in", utils.H{"Title": "Sign In"})
+		c.HTML(consts.StatusOK, "sign-in", utils.H{"Title": "登录"})
 	})
 	h.GET("sign-up", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "sign-up", utils.H{"Title": "Sign Up"})
+		c.HTML(consts.StatusOK, "sign-up", utils.H{"Title": "注册"})
 	})
 	h.GET("/about", func(ctx context.Context, c *app.RequestContext) {
 		//_, err := rpc.CasbinClient.Ok(ctx, &casbin.OkReq{Sub: "12@qq.com", Obj: "/about", Act: "GET"})
@@ -90,10 +90,10 @@ func main() {
 		//	return
 		//}
 		hlog.CtxInfof(ctx, "E-commerce shop about page")
-		c.HTML(consts.StatusOK, "about", utils.H{"Title": "About"})
+		c.HTML(consts.StatusOK, "about", utils.H{"Title": "关于"})
 	})
 	h.GET("/ai", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "ai", utils.H{"Title": "AI"})
+		c.HTML(consts.StatusOK, "ai", utils.H{"Title": "AI 助手"})
 	})
 	admin.RegisterRoutes(h)
 

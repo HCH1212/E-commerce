@@ -25,6 +25,7 @@ func (h *SearchProductsService) Run(req *product.SearchProductsReq) (resp map[st
 		return nil, err
 	}
 	return utils.H{
+		"Title": "搜索结果",
 		"items": p.Results,
 		"q":     req.Q,
 	}, nil

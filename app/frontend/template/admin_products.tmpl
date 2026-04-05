@@ -1,6 +1,6 @@
 {{ define "admin_products" }}
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -64,15 +64,15 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="/">
                 <img src="https://jw.cqupt.edu.cn/images/logo.png" alt="CQUPT Logo" style="height: 2.3em">
-                <span class="fw-semibold">E-commerce</span>
+                <span class="fw-semibold">电商系统</span>
             </a>
             <div class="ms-auto d-flex align-items-center gap-2">
-                <a class="btn btn-outline-success btn-sm" href="/">Store Home</a>
+                <a class="btn btn-outline-success btn-sm" href="/">商城主页</a>
                 <a class="btn btn-success btn-sm" href="/admin/products/new">
-                    <i class="fa-solid fa-plus me-1"></i>Add Product
+                    <i class="fa-solid fa-plus me-1"></i>新增商品
                 </a>
                 <form method="post" action="/admin/logout" class="d-inline">
-                    <button class="btn btn-outline-secondary btn-sm" type="submit">Logout</button>
+                    <button class="btn btn-outline-secondary btn-sm" type="submit">退出登录</button>
                 </form>
             </div>
         </div>
@@ -84,23 +84,23 @@
     <div class="admin-top-card p-4 mb-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
             <div>
-                <h2 class="mb-1">Product Admin Panel</h2>
-                <p class="text-muted mb-0">Manage products with search, editing, and quick actions.</p>
+                <h2 class="mb-1">商品管理面板</h2>
+                <p class="text-muted mb-0">支持商品搜索、编辑和快速操作。</p>
             </div>
             <span class="badge rounded-pill text-bg-light border px-3 py-2">
-                {{ len .Items }} result(s)
+                共 {{ len .Items }} 条结果
             </span>
         </div>
 
         <form class="row g-2" method="get" action="/admin/products">
             <div class="col-md-auto flex-grow-1">
-                <input class="form-control admin-query-input" type="text" name="q" value="{{ .Query }}" placeholder="Search by name or description" />
+                <input class="form-control admin-query-input" type="text" name="q" value="{{ .Query }}" placeholder="按名称或描述搜索" />
             </div>
             <div class="col-md-auto d-flex gap-2">
                 <button class="btn btn-outline-success" type="submit">
-                    <i class="fa-solid fa-magnifying-glass me-1"></i>Search
+                    <i class="fa-solid fa-magnifying-glass me-1"></i>搜索
                 </button>
-                <a class="btn btn-light border" href="/admin/products">Reset</a>
+                <a class="btn btn-light border" href="/admin/products">重置</a>
             </div>
         </form>
     </div>
@@ -110,12 +110,12 @@
             <table class="table table-hover align-middle mb-0">
                 <thead>
                 <tr>
-                    <th>Image</th>
+                    <th>图片</th>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>Actions</th>
+                    <th>名称</th>
+                    <th>价格</th>
+                    <th>分类</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -134,10 +134,10 @@
                         {{ end }}
                     </td>
                     <td class="admin-actions">
-                        <a class="btn btn-sm btn-outline-success" href="/admin/products/edit?id={{ .Id }}">Edit</a>
-                        <form class="d-inline" method="post" action="/admin/products/delete" onsubmit="return confirm('Confirm deleting this product?');">
+                        <a class="btn btn-sm btn-outline-success" href="/admin/products/edit?id={{ .Id }}">编辑</a>
+                        <form class="d-inline" method="post" action="/admin/products/delete" onsubmit="return confirm('确认删除该商品吗？');">
                             <input type="hidden" name="id" value="{{ .Id }}" />
-                            <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                            <button class="btn btn-sm btn-outline-danger" type="submit">删除</button>
                         </form>
                     </td>
                 </tr>
@@ -145,7 +145,7 @@
                 <tr>
                     <td colspan="6" class="text-center text-muted admin-empty">
                         <i class="fa-regular fa-folder-open fa-2x d-block mb-2"></i>
-                        No products found. Try a different keyword or add a new item.
+                        未找到商品，请尝试其他关键词或新增商品。
                     </td>
                 </tr>
                 {{ end }}

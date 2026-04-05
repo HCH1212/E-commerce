@@ -4,8 +4,8 @@
         <div class="card border-0" style="width: 100%;">
             <div class="card-body row">
                 <div class="col-lg-5 col-sm-12 flex-column align-self-end">
-                  <img src="https://jw.cqupt.edu.cn/images/logo.png" class="col-lg-4 col-sm-12" alt="CQUPT Logo">
-                    <p>This is a community driven project</p>
+                    <img src="https://jw.cqupt.edu.cn/images/logo.png" class="col-lg-4 col-sm-12" alt="CQUPT Logo">
+                    <p>这是一个由社区共同维护的项目。</p>
                 </div>
             </div>
         </div>
@@ -14,22 +14,19 @@
     <div class="row justify-content-center">
         <div class="col-4">
             <form method="POST" action="/casbin">
-                <p style="margin: 12px">如果已经是商家请输入email认证，如果想注册为商家请输入email和certificate证书</p>
-                <!-- Email 输入 -->
+                <p style="margin: 12px">如果你已是商家，请输入邮箱进行认证；如果想申请成为商家，请输入邮箱和证书。</p>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                    <label for="email" class="form-label">邮箱 <span class="text-danger">*</span></label>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
 
-                <!-- Certificate 输入 -->
                 <div class="mb-3">
-                    <label for="certificate" class="form-label">Certificate</label>
+                    <label for="certificate" class="form-label">证书</label>
                     <input type="text" class="form-control" id="certificate" name="certificate">
                 </div>
 
-                <!-- 提交按钮 -->
                 <div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">提交</button>
                 </div>
             </form>
         </div>

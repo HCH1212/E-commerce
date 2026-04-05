@@ -1,6 +1,6 @@
 {{ define "admin_product_form" }}
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,14 +44,14 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="/">
                 <img src="https://jw.cqupt.edu.cn/images/logo.png" alt="CQUPT Logo" style="height: 2.3em">
-                <span class="fw-semibold">E-commerce</span>
+                <span class="fw-semibold">电商系统</span>
             </a>
             <div class="ms-auto d-flex align-items-center gap-2">
                 <a class="btn btn-outline-success btn-sm" href="/admin/products">
-                    <i class="fa-solid fa-table-list me-1"></i>Products
+                    <i class="fa-solid fa-table-list me-1"></i>商品列表
                 </a>
                 <form method="post" action="/admin/logout" class="d-inline">
-                    <button class="btn btn-outline-secondary btn-sm" type="submit">Logout</button>
+                    <button class="btn btn-outline-secondary btn-sm" type="submit">退出登录</button>
                 </form>
             </div>
         </div>
@@ -63,48 +63,48 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <h2 class="mb-1">{{ .Title }}</h2>
-            <p class="text-muted mb-0">Keep product information clean and complete for better storefront quality.</p>
+            <p class="text-muted mb-0">请保持商品信息准确完整，以提升店铺展示效果。</p>
         </div>
-        <a class="btn btn-light border" href="/admin/products">Back to list</a>
+        <a class="btn btn-light border" href="/admin/products">返回列表</a>
     </div>
 
     <div class="editor-card bg-white">
         <div class="editor-head px-4 py-3">
-            <span class="fw-semibold">Product Details</span>
+            <span class="fw-semibold">商品详情</span>
         </div>
         <div class="card-body p-4">
             <form method="post" action="{{ .FormAction }}">
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="mb-3">
-                            <label class="form-label">Product name</label>
+                            <label class="form-label">商品名称</label>
                             <input class="form-control" name="name" value="{{ .Product.Name }}" required />
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Description</label>
+                            <label class="form-label">商品描述</label>
                             <textarea class="form-control" name="description" rows="5" required>{{ .Product.Description }}</textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Image URL</label>
+                            <label class="form-label">图片 URL</label>
                             <input class="form-control" name="picture" value="{{ .Product.Picture }}" required />
-                            <div class="form-tip mt-1">Use a stable HTTPS image URL to avoid broken images on the storefront.</div>
+                            <div class="form-tip mt-1">建议使用稳定的 HTTPS 图片地址，避免页面图片加载失败。</div>
                         </div>
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label">Price</label>
+                                <label class="form-label">价格</label>
                                 <input class="form-control" type="number" step="0.01" min="0" name="price" value="{{ .Product.Price }}" required />
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Categories (comma-separated)</label>
-                                <input class="form-control" name="categories" value="{{ .Categories }}" placeholder="e.g. Electronics, Phone" />
+                                <label class="form-label">分类（英文逗号分隔）</label>
+                                <input class="form-control" name="categories" value="{{ .Categories }}" placeholder="例如：数码, 手机" />
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-4">
-                        <label class="form-label">Image preview</label>
+                        <label class="form-label">图片预览</label>
                         <div>
-                            <img id="picturePreview" class="thumb-preview" src="{{ .Product.Picture }}" alt="product preview" />
+                            <img id="picturePreview" class="thumb-preview" src="{{ .Product.Picture }}" alt="商品预览图" />
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                     <button class="btn btn-success" type="submit">
                         <i class="fa-solid fa-floppy-disk me-1"></i>{{ .SubmitLabel }}
                     </button>
-                    <a class="btn btn-outline-secondary" href="/admin/products">Cancel</a>
+                    <a class="btn btn-outline-secondary" href="/admin/products">取消</a>
                 </div>
             </form>
         </div>
@@ -129,7 +129,7 @@
     if (!pictureInput || !preview) {
         return;
     }
-    var fallback = 'https://via.placeholder.com/600x600?text=No+Image';
+    var fallback = 'https://via.placeholder.com/600x600?text=%E6%97%A0%E5%9B%BE%E7%89%87';
     var updatePreview = function () {
         var value = (pictureInput.value || '').trim();
         preview.src = value || fallback;

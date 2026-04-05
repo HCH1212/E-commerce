@@ -1,6 +1,6 @@
 {{ define "admin_login" }}
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,27 +30,27 @@
     <div class="login-card p-4 p-md-5">
         <div class="text-center mb-4">
             <img src="https://jw.cqupt.edu.cn/images/logo.png" alt="logo" style="height:52px;" class="mb-2">
-            <h3 class="mb-1">Admin Login</h3>
-            <p class="text-muted mb-0">Sign in to manage products</p>
+            <h3 class="mb-1">后台登录</h3>
+            <p class="text-muted mb-0">登录后可管理商品</p>
         </div>
 
         {{ if .Error }}
         <div class="alert alert-danger py-2" role="alert">
-            Invalid username or password.
+            用户名或密码错误。
         </div>
         {{ end }}
 
         <form method="post" action="/admin/login">
             <div class="mb-3">
-                <label class="form-label">Username</label>
+                <label class="form-label">用户名</label>
                 <input class="form-control" name="username" placeholder="admin" required />
             </div>
             <div class="mb-3">
-                <label class="form-label">Password</label>
+                <label class="form-label">密码</label>
                 <input class="form-control" type="password" name="password" placeholder="admin" required />
             </div>
             <button class="btn btn-success w-100" type="submit">
-                <i class="fa-solid fa-right-to-bracket me-1"></i>Login
+                <i class="fa-solid fa-right-to-bracket me-1"></i>登录
             </button>
         </form>
     </div>

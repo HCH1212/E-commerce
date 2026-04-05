@@ -26,8 +26,8 @@ func PlaceModel(ctx context.Context, question string, uid int32) (string, error)
 	// 初始化模型
 	model, err := ark.NewChatModel(ctx, &ark.ChatModelConfig{
 		APIKey: os.Getenv("API_KEY"),
-		Region: "cn-beijing",
-		Model:  "doubao-1.5-pro-32k-250115",
+		BaseURL: os.Getenv("BASE_URL"),
+		Model:  "deepseek-chat",
 	})
 	if err != nil {
 		panic(err)

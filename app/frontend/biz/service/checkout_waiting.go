@@ -48,7 +48,7 @@ func (h *CheckoutWaitingService) Run(req *checkout.CheckoutReq) (resp map[string
 	}
 
 	return utils.H{
-		"Title":    "waiting",
+		"Title":    "支付处理中",
 		"redirect": "/checkout/result",
 	}, nil
 }

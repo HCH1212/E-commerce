@@ -5,7 +5,7 @@
         <div class="card-body row">
             <div class="col-lg-5 col-sm-12 flex-column align-self-end">
                 <img src="https://jw.cqupt.edu.cn/images/logo.png" class="col-lg-4 col-sm-12" alt="CQUPT Logo">
-                <p>Welcome to the AI Chat Interface</p>
+                <p>欢迎使用 AI 对话助手</p>
             </div>
         </div>
     </div>
@@ -13,16 +13,15 @@
 
 <div class="row justify-content-center">
     <div class="col-8">
-        <div style="margin-bottom: 30px">示例：帮我下单1个商品名为02.1的商品 (注：下单后会加入购物车，请自己核对付款)</div>
-        <!-- 输入框和提交按钮 -->
+        <div style="margin-bottom: 30px">示例：帮我下单 1 个名称为 2.1 的商品（下单后会加入购物车，请自行核对并支付）。</div>
         <form method="POST" action="/eino">
             <div class="mb-3">
-                <label for="content" class="form-label">Your Content <span class="text-danger">*</span></label>
+                <label for="content" class="form-label">输入内容 <span class="text-danger">*</span></label>
                 <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
             </div>
 
             <div>
-                <button type="submit" class="btn btn-primary">Send</button>
+                <button type="submit" class="btn btn-primary">发送</button>
             </div>
         </form>
     </div>

@@ -31,7 +31,7 @@ func (h *OrderListService) Run(req *order.Empty) (resp map[string]any, err error
 	}
 	if listOrderResp == nil || len(listOrderResp.Orders) == 0 {
 		return utils.H{
-			"Title":  "Order",
+			"Title":  "我的订单",
 			"orders": orders,
 		}, nil
 	}
@@ -71,7 +71,7 @@ func (h *OrderListService) Run(req *order.Empty) (resp map[string]any, err error
 	}
 
 	return utils.H{
-		"Title":  "Order",
+		"Title":  "我的订单",
 		"orders": orders,
 	}, nil
 }

@@ -49,7 +49,7 @@ func (h *CheckoutService) Run(req *checkout.CheckoutReq) (resp map[string]any, e
 	}
 
 	return utils.H{
-		"Title":    "Checkout",
+		"Title":    "订单结算",
 		"items":    items,
 		"cart_num": len(items),
 		"total":    strconv.FormatFloat(float64(total), 'f', 2, 64),
